@@ -15,7 +15,7 @@ public class Lab8_DR {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+        new Menu_Frame().setVisible(true);
     }
     
 }

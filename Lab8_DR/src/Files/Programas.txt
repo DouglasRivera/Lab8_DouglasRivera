@@ -1,0 +1,3 @@
+Inuyasha,Romance,Anime,5,2000
+Boku no hero,Comedia,Documental,10,2017
+Black Clover,Accion,Anime,9,2019
