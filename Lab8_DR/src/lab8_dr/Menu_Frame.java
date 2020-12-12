@@ -187,6 +187,7 @@ public class Menu_Frame extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jbtFavorito1 = new javax.swing.JButton();
+        jbtEliminar2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -457,6 +458,15 @@ public class Menu_Frame extends javax.swing.JFrame {
             }
         });
 
+        jbtEliminar2.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
+        jbtEliminar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Delete.png"))); // NOI18N
+        jbtEliminar2.setText("Eliminar");
+        jbtEliminar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtEliminar2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -472,13 +482,16 @@ public class Menu_Frame extends javax.swing.JFrame {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(181, 181, 181)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(181, 181, 181)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(jbtFavorito1)
+                        .addGap(62, 62, 62)
+                        .addComponent(jbtEliminar2)))
                 .addContainerGap(91, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbtFavorito1)
-                .addGap(199, 199, 199))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -494,7 +507,9 @@ public class Menu_Frame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addComponent(jbtFavorito1)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtFavorito1)
+                    .addComponent(jbtEliminar2))
                 .addContainerGap(245, Short.MAX_VALUE))
         );
 
@@ -643,6 +658,10 @@ public class Menu_Frame extends javax.swing.JFrame {
       agregarDato();
     }//GEN-LAST:event_jbtFavorito1ActionPerformed
 
+    private void jbtEliminar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEliminar2ActionPerformed
+        EliminarDato();
+    }//GEN-LAST:event_jbtEliminar2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -687,6 +706,12 @@ public class Menu_Frame extends javax.swing.JFrame {
            modelo.addElement(jtxtNombreFavorito.getText());
            return modelo;
         }
+        public DefaultListModel EliminarDato(){
+           DefaultListModel modelo = (DefaultListModel) jList1.getModel();
+           modelo.remove(jList1.getSelectedIndex());
+           return modelo;
+        }
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -712,6 +737,7 @@ public class Menu_Frame extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JButton jbtEliminar1;
+    private javax.swing.JButton jbtEliminar2;
     private javax.swing.JButton jbtFavorito;
     private javax.swing.JButton jbtFavorito1;
     private javax.swing.JButton jbtModificar;
