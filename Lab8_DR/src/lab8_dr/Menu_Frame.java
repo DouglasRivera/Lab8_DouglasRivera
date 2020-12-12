@@ -7,7 +7,11 @@ package lab8_dr;
 
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -26,11 +30,27 @@ public class Menu_Frame extends javax.swing.JFrame {
      */
     private int Id = -1;
      private int IdFavorito = -1;
-     DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
-        //create the child nodes
     
     public Menu_Frame() {
         initComponents();
+        setTitle("Menu del Frame");
+        setIconImage(new ImageIcon(getClass().getResource("/Icons/View.png")).getImage());
+        ((JPanel)getContentPane()).setOpaque(false);
+        ImageIcon uno=new ImageIcon(this.getClass().getResource("/Icons/jkcaptura.png"));
+        JLabel fondo= new JLabel();
+        fondo.setIcon(uno);
+        getLayeredPane().add(fondo,JLayeredPane.FRAME_CONTENT_LAYER);
+        fondo.setBounds(0,0,uno.getIconWidth(),uno.getIconHeight());
+       
+        /*ClaudiList cl = new ClaudiList();
+           DefaultListModel modelo
+                    = (DefaultListModel) jList1.getModel();
+            ArrayList<ClaudiList> programas = cl.ReadFileScannerArrayList();
+            for (int i = 0; i < programas.size(); i++) {
+             modelo.addElement(programas.get(i));
+            
+        }*/
+           
          jTable2.setModel(new javax.swing.table.DefaultTableModel(
                         new Object[][]{},
                         new String[]{
@@ -161,14 +181,12 @@ public class Menu_Frame extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jtxtNombreFavorito = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
+        jbtFavorito1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -249,7 +267,7 @@ public class Menu_Frame extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(265, 265, 265)
                         .addComponent(JbtAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,9 +279,9 @@ public class Menu_Frame extends javax.swing.JFrame {
                     .addComponent(jbtEliminar1)
                     .addComponent(jbtModificar)
                     .addComponent(jbtFavorito))
-                .addGap(49, 49, 49)
+                .addGap(141, 141, 141)
                 .addComponent(JbtAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(280, Short.MAX_VALUE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Visualizar", jPanel2);
@@ -419,10 +437,6 @@ public class Menu_Frame extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        jButton1.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Delete.png"))); // NOI18N
-        jButton1.setText("Eliminar");
-
         jLabel6.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
         jLabel6.setText("Nombre lista favorito:");
 
@@ -431,21 +445,17 @@ public class Menu_Frame extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
         jLabel7.setText("Lista favoritos:");
 
-        jButton2.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Add.png"))); // NOI18N
-        jButton2.setText("Guardar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Edit.png"))); // NOI18N
-        jButton3.setText("Modificar");
-
         jList1.setModel(new DefaultListModel());
         jScrollPane4.setViewportView(jList1);
+
+        jbtFavorito1.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
+        jbtFavorito1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Yellow file.png"))); // NOI18N
+        jbtFavorito1.setText("Agregar Favorito");
+        jbtFavorito1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtFavorito1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -462,18 +472,13 @@ public class Menu_Frame extends javax.swing.JFrame {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(181, 181, 181)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jButton2)
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton3)
-                        .addGap(27, 27, 27)
-                        .addComponent(jButton1)))
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addGap(181, 181, 181)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(91, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbtFavorito1)
+                .addGap(199, 199, 199))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -488,12 +493,9 @@ public class Menu_Frame extends javax.swing.JFrame {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
-                .addContainerGap(242, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(jbtFavorito1)
+                .addContainerGap(245, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Favoritos", jPanel3);
@@ -637,20 +639,9 @@ public class Menu_Frame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtEliminar1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        boolean valido = true;
-        if (this.jtxtNombreFavorito.getText() == null || "".equals(this.jtxtNombreFavorito.getText())) {
-            JOptionPane.showConfirmDialog(this, "Ingrese el nombre");
-            valido = false; 
-        }
-        if(valido) {
-            ClaudiList cl = new ClaudiList(this.jtxtNombreFavorito.getText(), null);
-            cl.WriteFile(this.jtxtNombreFavorito.getText(), new ArrayList<>());
-          
-        
-           // recargarTabla(jTable2);
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jbtFavorito1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFavorito1ActionPerformed
+      agregarDato();
+    }//GEN-LAST:event_jbtFavorito1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -686,14 +677,22 @@ public class Menu_Frame extends javax.swing.JFrame {
             }
         });
     }
+    public DefaultListModel limpiarJlist(){
+        DefaultListModel modelo = new DefaultListModel();
+        jList1.setModel(modelo);
+        return modelo;
+    }
+        public DefaultListModel agregarDato(){
+           DefaultListModel modelo = (DefaultListModel) jList1.getModel();
+           modelo.addElement(jtxtNombreFavorito.getText());
+           return modelo;
+        }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JbtAgregar;
     private javax.swing.JButton JbtAgregar1;
     private javax.swing.JButton jBAgregarPrograma1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -714,6 +713,7 @@ public class Menu_Frame extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JButton jbtEliminar1;
     private javax.swing.JButton jbtFavorito;
+    private javax.swing.JButton jbtFavorito1;
     private javax.swing.JButton jbtModificar;
     private javax.swing.JComboBox<String> jcbGeneroPrograma;
     private javax.swing.JComboBox<String> jcbTipoPrograma;

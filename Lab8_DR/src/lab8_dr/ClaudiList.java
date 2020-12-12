@@ -47,7 +47,7 @@ public class ClaudiList {
 
     @Override
     public String toString() {
-        return Nombre + " " + toStringII(Programas);
+        return Nombre;
     }
 
     public String toStringII(ArrayList<TipoProgramas> Programas) {
