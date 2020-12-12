@@ -6,10 +6,14 @@
 package lab8_dr;
 
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -22,9 +26,12 @@ public class Menu_Frame extends javax.swing.JFrame {
      */
     private int Id = -1;
      private int IdFavorito = -1;
+     DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
+        //create the child nodes
+    
     public Menu_Frame() {
         initComponents();
-         jTable1.setModel(new javax.swing.table.DefaultTableModel(
+         jTable2.setModel(new javax.swing.table.DefaultTableModel(
                         new Object[][]{},
                         new String[]{
                             "Nombre", "Genero", "Tipo", "Puntos", "Año Lanzamiento"
@@ -48,7 +55,39 @@ public class Menu_Frame extends javax.swing.JFrame {
                     }
                 });
         
-                jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                jTable2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+                        // jTable1.getSelectedRow()
+                        Id = jTable1.getSelectedRow();
+                    }
+
+                });
+                 jTable2.setModel(new javax.swing.table.DefaultTableModel(
+                        new Object[][]{},
+                        new String[]{
+                            "Nombre", "Genero", "Tipo", "Puntos", "Año Lanzamiento"
+                        }
+                ) {
+                    Class[] types = new Class[]{
+                        java.lang.String.class, java.lang.String.class , java.lang.String.class, java.lang.String.class, java.lang.String.class
+                    };
+                    boolean[] canEdit = new boolean[]{
+                        false, false,false,false,false
+                    };
+                    
+                    
+
+                    public Class getColumnClass(int columnIndex) {
+                        return types[columnIndex];
+                    }
+
+                    public boolean isCellEditable(int rowIndex, int columnIndex) {
+                        return canEdit[columnIndex];
+                    }
+                });
+        
+                jTable2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
                         // jTable1.getSelectedRow()
@@ -57,7 +96,8 @@ public class Menu_Frame extends javax.swing.JFrame {
 
                 });
                 
-                recargarTabla();
+                recargarTabla(jTable1);
+                recargarTabla(jTable2);
               
     }
     private String Genero = "";
@@ -66,25 +106,25 @@ public class Menu_Frame extends javax.swing.JFrame {
     public static ArrayList <TipoProgramas> Programas = new ArrayList();
     private TipoProgramas tipoPrograma;
     
-    public void vaciarTabla(){
+    public void vaciarTabla(JTable tabla){
         DefaultTableModel Modelo = (DefaultTableModel) jTable1.getModel();
         String titulos[] =  new String[]{
                             "Nombre", "Genero", "Tipo", "Puntos", "Año Lanzamiento"
                         };
         Modelo = new DefaultTableModel(null,titulos);
-        jTable1.setModel(Modelo);
+        tabla.setModel(Modelo);
 
     }
     
-    private void recargarTabla(){
-        vaciarTabla();
+    private void recargarTabla(JTable tabla){
+        vaciarTabla(tabla);
           TipoProgramas tp = new TipoProgramas();
                 for (TipoProgramas tPrograma : tp.ReadFileScannerArrayList()) {
                     Object row[] = {tPrograma.getNombre(), tPrograma.getGenero(), tPrograma.getTipo(),tPrograma.getPuntos(), tPrograma.getYearLanzamiento()};
                     DefaultTableModel m =
-                            (DefaultTableModel) jTable1.getModel();
+                            (DefaultTableModel) tabla.getModel();
                     m.addRow(row);
-                    jTable1.setModel(m);
+                    tabla.setModel(m);
                 }//fin for
         
     }
@@ -125,10 +165,10 @@ public class Menu_Frame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jtxtNombreFavorito = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -391,8 +431,6 @@ public class Menu_Frame extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
         jLabel7.setText("Lista favoritos:");
 
-        jScrollPane3.setViewportView(jTree1);
-
         jButton2.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Add.png"))); // NOI18N
         jButton2.setText("Guardar");
@@ -406,6 +444,9 @@ public class Menu_Frame extends javax.swing.JFrame {
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Edit.png"))); // NOI18N
         jButton3.setText("Modificar");
 
+        jList1.setModel(new DefaultListModel());
+        jScrollPane4.setViewportView(jList1);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -416,9 +457,9 @@ public class Menu_Frame extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jtxtNombreFavorito, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jtxtNombreFavorito)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -443,16 +484,16 @@ public class Menu_Frame extends javax.swing.JFrame {
                     .addComponent(jtxtNombreFavorito, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(44, 44, 44)
+                    .addComponent(jLabel7)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1)
                     .addComponent(jButton3))
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addContainerGap(242, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Favoritos", jPanel3);
@@ -545,7 +586,7 @@ public class Menu_Frame extends javax.swing.JFrame {
             this.Id = -1;
             JOptionPane.showConfirmDialog(this, "Se actualizo correctamente");
         }
-        recargarTabla();
+        recargarTabla(jTable1);
        
     }//GEN-LAST:event_JbtAgregarActionPerformed
 
@@ -591,20 +632,23 @@ public class Menu_Frame extends javax.swing.JFrame {
             programas.remove(Id);
             this.Id = -1;
             tp.WriteFileMod(programas);
-            recargarTabla();
+            recargarTabla(jTable1);
             JOptionPane.showConfirmDialog(this, "Se elimino correctamente");
         }
     }//GEN-LAST:event_jbtEliminar1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         boolean valido = true;
-        if (this.jtxtNombrePrograma.getText() == null || "".equals(this.jtxtNombrePrograma.getText())) {
+        if (this.jtxtNombreFavorito.getText() == null || "".equals(this.jtxtNombreFavorito.getText())) {
             JOptionPane.showConfirmDialog(this, "Ingrese el nombre");
             valido = false; 
         }
         if(valido) {
-            ClaudiList cl = new ClaudiList(this.jtxtNombrePrograma.getText(), null);
-            cl.WriteFile(this.jtxtNombrePrograma.getText(), null);
+            ClaudiList cl = new ClaudiList(this.jtxtNombreFavorito.getText(), null);
+            cl.WriteFile(this.jtxtNombreFavorito.getText(), new ArrayList<>());
+          
+        
+           // recargarTabla(jTable2);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -657,17 +701,17 @@ public class Menu_Frame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTree jTree1;
     private javax.swing.JButton jbtEliminar1;
     private javax.swing.JButton jbtFavorito;
     private javax.swing.JButton jbtModificar;

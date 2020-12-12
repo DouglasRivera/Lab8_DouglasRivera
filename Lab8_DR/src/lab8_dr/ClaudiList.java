@@ -60,26 +60,29 @@ public class ClaudiList {
         return ret;
     }
     
-     public ArrayList<TipoProgramas> ReadFileScannerArrayList() {
+     public ArrayList<ClaudiList> ReadFileScannerArrayList() {
          File archivo = null;
         Scanner sc = null;//Hacemos lo mismo, leemos con el scanner
+        ArrayList<ClaudiList> favoritos = new ArrayList<>();
         ArrayList<TipoProgramas> programas = new ArrayList<>();
         try {
             archivo = new File(new File(".").getCanonicalPath() + "\\src\\Files\\" + "ClaudiList.txt");
             sc = new Scanner(archivo);
+             String nombre = sc.nextLine();
             while (sc.hasNext()) {
                 String temp = sc.nextLine();
-                String[] next = temp.split(","); 
+                String[] next = temp.split(",");
                 programas.add(new TipoProgramas(Integer.parseInt(next[3]), Integer.parseInt(next[4]), next[0], next[2], next[1]));
                 
                 // .out.println(next);
                
             }
-            return programas;
+            favoritos.add(new ClaudiList(nombre, programas));
+            return favoritos;
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error en la lectura.");
-            return programas;
+            return favoritos;
         } finally {
              sc.close();
         }
@@ -103,7 +106,7 @@ public class ClaudiList {
         sc.close();
     }
     
-    public void WriteFile(String NombreLista, TipoProgramas programa) {
+    public void WriteFile(String NombreLista, ArrayList<TipoProgramas> programa) {
         File archivo = null;
         FileWriter fw = null;
         BufferedWriter bw = null; 
@@ -111,8 +114,13 @@ public class ClaudiList {
             archivo = new File(new File(".").getCanonicalPath() + "\\src\\Files\\" + "ClaudiList-"+NombreLista+".txt");
             fw = new FileWriter(archivo, true);
             bw = new BufferedWriter(fw);
-            bw.write(programa.getNombre() + "," + programa.getGenero() + "," + programa.getTipo() + "," + programa.getPuntos() + "," + programa.getYearLanzamiento());
+            bw.write(NombreLista);
             bw.newLine();
+            for (int i = 0; i < programa.size(); i++) {
+                 bw.write(programa.get(i).getNombre() + "," + programa.get(i).getGenero() + "," + programa.get(i).getTipo() + "," + programa.get(i).getPuntos() + "," + programa.get(i).getYearLanzamiento());
+                    bw.newLine();
+            }
+           
             bw.flush();
         } catch (Exception e) {
             e.printStackTrace();
