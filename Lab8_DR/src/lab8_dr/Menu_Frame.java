@@ -51,7 +51,7 @@ public class Menu_Frame extends javax.swing.JFrame {
             
         }*/
            
-         jTable2.setModel(new javax.swing.table.DefaultTableModel(
+         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                         new Object[][]{},
                         new String[]{
                             "Nombre", "Genero", "Tipo", "Puntos", "Año Lanzamiento"
@@ -75,7 +75,7 @@ public class Menu_Frame extends javax.swing.JFrame {
                     }
                 });
         
-                jTable2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
                         // jTable1.getSelectedRow()
@@ -83,7 +83,7 @@ public class Menu_Frame extends javax.swing.JFrame {
                     }
 
                 });
-                 jTable2.setModel(new javax.swing.table.DefaultTableModel(
+                 jTable1.setModel(new javax.swing.table.DefaultTableModel(
                         new Object[][]{},
                         new String[]{
                             "Nombre", "Genero", "Tipo", "Puntos", "Año Lanzamiento"
@@ -107,7 +107,7 @@ public class Menu_Frame extends javax.swing.JFrame {
                     }
                 });
         
-                jTable2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
                         // jTable1.getSelectedRow()
@@ -626,7 +626,7 @@ public class Menu_Frame extends javax.swing.JFrame {
        if(jTable1.getSelectedRow()>=0){
             // guardar favorito
             
-            JOptionPane.showConfirmDialog(this, "Se guardo favorito correctamente");
+            JOptionPane.showInputDialog(this, "Se guardo favorito correctamente");
         }
     }//GEN-LAST:event_jbtFavoritoActionPerformed
 
